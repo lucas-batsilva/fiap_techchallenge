@@ -3,7 +3,7 @@ on:
   push:
     branches:
       # FIXME: @TallesCosta substituir por: main
-      - feat/cria-pipeline
+      - testa-pipeline
 env:
   ECR_REPOSITORY: ${{ vars.ECR_REPOSITORY }}
 jobs:
