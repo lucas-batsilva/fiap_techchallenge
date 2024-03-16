@@ -17,10 +17,10 @@ jobs:
           echo "Good! 🎉"
 
       - name: Checkout GitHub Actions
-        uses: actions/checkout@v4.1.1
+        uses: actions/checkout@v2
  
       - name: Configura Credenciais AWS
-        uses: aws-actions/configure-aws-credentials@v4.0.2
+        uses: aws-actions/configure-aws-credentials@v2
         with:
           aws-region: sa-east-1
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
