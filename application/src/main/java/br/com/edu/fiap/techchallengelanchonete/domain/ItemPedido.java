@@ -19,7 +19,7 @@ public class ItemPedido extends DomainObject {
         this.quantidade = new Quantidade(0);
     }
 
-    public Valor getSubTotal() {
+    public Valor getValor() {
         return new Valor(produto.getPreco().getValor().multiply(new BigDecimal(quantidade.getValor())));
     }
 }

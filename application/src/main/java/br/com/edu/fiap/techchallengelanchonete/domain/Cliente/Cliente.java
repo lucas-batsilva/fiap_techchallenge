@@ -46,12 +46,4 @@ public class Cliente extends DomainObject implements ICliente {
         this.email = email;
         this.cpf = cpf;
     }
-
-    public String getPrimeiroNome() {
-        return this.getNome().getPrimeiro();
-    }
-
-    public String getSobrenome() {
-        return this.getNome().getSobrenome();
-    }
 }

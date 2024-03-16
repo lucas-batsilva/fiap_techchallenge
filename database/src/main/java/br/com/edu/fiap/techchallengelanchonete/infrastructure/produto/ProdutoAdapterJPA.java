@@ -26,8 +26,7 @@ public class ProdutoAdapterJPA implements IProdutoPersistence {
 
     @Override
     public Produto cadastro(Produto produto) {
-        var produtoModel = this.produtoAdapter.toModel(produto);
-        return this.produtoAdapter.toDomain(this.produtoRepository.save(produtoModel));
+        return this.produtoAdapter.toDomain(this.produtoRepository.save(this.produtoAdapter.toModel(produto)));
     }
 
     @Override
@@ -38,8 +37,7 @@ public class ProdutoAdapterJPA implements IProdutoPersistence {
             throw new NotFoundResourceException("Produto não encontrado!");
 
         produto.setId(new Id(id));
-        var produtoModel = this.produtoAdapter.toModel(produto);
-        return this.produtoAdapter.toDomain(this.produtoRepository.save(produtoModel));
+        return this.produtoAdapter.toDomain(this.produtoRepository.save(this.produtoAdapter.toModel(produto)));
     }
 
     @Override
@@ -49,26 +47,18 @@ public class ProdutoAdapterJPA implements IProdutoPersistence {
 
     @Override
     public List<Produto> listagem() {
-        return this.produtoRepository
-                .findAll()
-                .stream()
-                .map(x -> this.produtoAdapter.toDomain(x))
-                .collect(Collectors.toList());
+        return this.produtoRepository.findAll().stream().map(x -> this.produtoAdapter.toDomain(x)).collect(Collectors.toList());
     }
 
     @Override
     public Optional<Produto> buscaId(Long id) {
-        return this.produtoRepository
-                .findById(id)
-                .map(produtoAdapter::toDomain);
+        var optionalProduto = this.produtoRepository.findById(id);
+        return optionalProduto.isPresent() ?
+                Optional.of(this.produtoAdapter.toDomain(optionalProduto.get())) : Optional.empty();
     }
 
     @Override
     public List<Produto> buscaCategoria(String descricao) {
-        return this.produtoRepository
-                .findByCategoria_Nome(descricao.toUpperCase())
-                .stream()
-                .map(x -> this.produtoAdapter.toDomain(x))
-                .collect(Collectors.toList());
+        return this.produtoRepository.findByCategoria_Nome(descricao.toUpperCase()).stream().map(x -> this.produtoAdapter.toDomain(x)).collect(Collectors.toList());
     }
 }
